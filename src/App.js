@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import '../node_modules/swiper/swiper.min.css';
+import './assets/boxicons-2.0.7/css/boxicons.min.css';
+import './App.scss';
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import DefaultLayout from './components/layout/DefauLayout';
+
+import publicRoutes from './config/Index';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          {publicRoutes.map((route, index) => {
+            const Page = route.component;
+            return (
+              <Route
+                key={index}
+                path={route.path}
+                element={
+                  <DefaultLayout>
+                    <Page />
+                  </DefaultLayout>
+                }
+              />
+            )
+
+          })}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
